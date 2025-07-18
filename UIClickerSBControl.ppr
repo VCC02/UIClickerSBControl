@@ -1,0 +1,191 @@
+{
+    Copyright (C) 2025 VCC
+    creation date: 18 Jul 2025
+    initial release date: 18 Jul 2025
+
+    author: VCC
+    Permission is hereby granted, free of charge, to any person obtaining a copy
+    of this software and associated documentation files (the "Software"),
+    to deal in the Software without restriction, including without limitation
+    the rights to use, copy, modify, merge, publish, distribute, sublicense,
+    and/or sell copies of the Software, and to permit persons to whom the
+    Software is furnished to do so, subject to the following conditions:
+    The above copyright notice and this permission notice shall be included
+    in all copies or substantial portions of the Software.
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+    EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+    MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+    IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+    TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
+    OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+}
+
+{$mode Delphi}{$H+}
+
+
+program UIClickerSBControl;
+
+uses
+  Interfaces, SysUtils, Classes, DllUtils,
+  ClickerUtils, ClickerClientAPI, ClickerClientIntf, ClickerActionProperties
+  //, LCLIntf, LCLType
+
+  ;
+
+function GetErrorMessageFromRespose(ARespose: string; AVarNameForError: string = '$ExecAction_Err$'): string;
+var                                                                     //other: '$PluginError$'
+  ListOfStrings: TStringList;
+begin
+  ListOfStrings := TStringList.Create;
+  try
+    ListOfStrings.Text := FastReplace_87ToReturn(ARespose);
+    Result := ListOfStrings.Values[AVarNameForError];
+  finally
+    ListOfStrings.Free;
+  end;
+end;
+
+
+function FindBrowserWindow: string;
+var
+  Response, Err: string;
+  VerifFindControlAPI: TClkFindControlOptionsAPI;
+  VerifFindControl: TClkFindControlOptions;
+  DummyDestMatchBitmapTextRecAPI: TMatchBitmapTextRecAPI;
+  DummyDestMatchBitmapTextArray: TClkFindControlMatchBitmapTextAPIArr;
+begin
+  GetDefaultPropertyValues_FindControl(VerifFindControl);
+  VerifFindControl.MatchCriteria.SearchForControlMode := sfcmFindWindow;
+  VerifFindControl.MatchText := 'Mozilla Firefox'; //find a way to get the default browser, and wait for that
+  VerifFindControl.MatchClassName := 'MozillaWindowClass';
+
+  SetFindControlOptionsToAPI(VerifFindControl, VerifFindControlAPI, DummyDestMatchBitmapTextRecAPI, DummyDestMatchBitmapTextArray);
+
+  SetLength(Response, CMaxSharedStringLength);
+  SetLength(Response, ExecuteFindControlAction(@'Wait for browser.'[1], 3000, @VerifFindControlAPI, False, @'Disk'[1], @Response[1]));
+  Result := Response;
+
+  Err := GetErrorMessageFromRespose(Response);
+  if (Pos('Timeout at', Err) > 0) and
+     (Pos('$Control_Text$="chrome"  $Control_Class$="chrome"', Err) > 0) then
+  begin
+    GetDefaultPropertyValues_FindControl(VerifFindControl);
+    VerifFindControl.MatchCriteria.SearchForControlMode := sfcmFindWindow;
+    VerifFindControl.MatchText := 'chrome'; //find a way to get the default browser, and wait for that
+    VerifFindControl.MatchClassName := 'chrome';
+
+    SetFindControlOptionsToAPI(VerifFindControl, VerifFindControlAPI, DummyDestMatchBitmapTextRecAPI, DummyDestMatchBitmapTextArray);
+
+    SetLength(Response, CMaxSharedStringLength);
+    SetLength(Response, ExecuteFindControlAction(@'Wait for browser.'[1], 3000, @VerifFindControlAPI, False, @'Disk'[1], @Response[1]));
+    Result := Response;
+  end;
+  //maybe search for Edge
+end;
+
+
+function OpenDefaultBrowser: string;
+var
+  ExecAppActionAPI: TClkExecAppOptionsAPI;
+  ExecAppAction: TClkExecAppOptions;
+  Response: string;
+begin
+  GetDefaultPropertyValues_ExecApp(ExecAppAction);
+  ExecAppAction.PathToApp := 'C:\Windows\explorer.exe';  //Windows can be installed somewhere else
+  ExecAppAction.ListOfParams := 'http://';
+
+  SetExecAppOptionsToAPI(ExecAppAction, ExecAppActionAPI);
+
+  SetLength(Response, CMaxSharedStringLength);
+  SetLength(Response, ExecuteExecAppAction(@'Open default browser.'[1], 1000, @ExecAppActionAPI, False, @Response[1]));
+  Result := GetErrorMessageFromRespose(Response);
+
+  if Result = '' then
+    Result := GetErrorMessageFromRespose(FindBrowserWindow);
+end;
+
+
+function OpenCustomBrowser(ABrowserName: string): string;
+begin
+  ABrowserName := Copy(ABrowserName, 1, 100);
+  Result := '';
+  WriteLn('Opening custom browser ' + ABrowserName + ' is not implemented.');
+end;
+
+
+function TypeAddressIntoAddressBar(AAddress: string; APressReturn: Boolean = True): string;
+var
+  Response: string;
+  SetControlTextAPI: TClkSetTextOptionsAPI;
+  SetControlText: TClkSetTextOptions;
+  WindowOperationsAPI: TClkWindowOperationsOptionsAPI;
+  WindowOperations: TClkWindowOperationsOptions;
+begin
+  Result := GetErrorMessageFromRespose(FindBrowserWindow);
+  if Result <> '' then
+    Exit;
+
+  GetDefaultPropertyValues_WindowOperations(WindowOperations);
+  SetWindowOperationsOptionsToAPI(WindowOperations, WindowOperationsAPI);
+
+  SetLength(Response, CMaxSharedStringLength);
+  SetLength(Response, ExecuteWindowOperationsAction(@'Bring browser to front.'[1], 1000, @WindowOperationsAPI, False, @Response[1]));
+  Result := GetErrorMessageFromRespose(Response);
+
+  if Result <> '' then
+    Exit;
+
+  //ToDo: Add a FindSubControl action, to get the address bar
+  //ToDo: Add a Click action, to focus the address bar
+
+  GetDefaultPropertyValues_SetControlText(SetControlText);
+  SetControlText.Text := AAddress;
+
+  if APressReturn then
+    SetControlText.Text := SetControlText.Text + '$Return$';
+
+  SetControlText.ControlType := stKeystrokes;
+  SetControlText.DelayBetweenKeyStrokes := '$Random(200, 1500)$';
+
+  SetSetControlTextOptionsToAPI(SetControlText, SetControlTextAPI);
+
+  SetLength(Response, CMaxSharedStringLength);
+  SetLength(Response, ExecuteSetControlTextAction(@'Type on browser.'[1], 1000, @SetControlTextAPI, False, @Response[1]));
+  Result := GetErrorMessageFromRespose(Response);
+end;
+
+
+begin
+  try
+    {$IFDEF Windows}
+      LoadClickerClient('..\UIClicker\ClickerClient\ClickerClient.dll');
+    {$ELSE}
+      LoadClickerClient('../UIClicker/ClickerClient/ClickerClient.so');
+    {$ENDIF}
+    try
+      InitClickerClient;
+      try
+        if ParamStr(1) = '--OpenBrowser' then
+        begin
+          if ParamStr(2) = 'Default' then
+            WriteLn(OpenDefaultBrowser)
+          else
+            WriteLn(OpenCustomBrowser(ParamStr(2)));
+        end;
+
+        if ParamStr(1) = '--TypeAddressIntoAddressBar' then
+          WriteLn(TypeAddressIntoAddressBar(ParamStr(2)));
+      finally
+        DoneClickerClient;
+      end;
+    finally
+      UnLoadClickerClient;
+    end;
+
+  except
+    on E: Exception do
+      WriteLn(E.Message);
+  end;
+end.
+
