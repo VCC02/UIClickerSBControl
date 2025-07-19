@@ -156,6 +156,16 @@ begin
 end;
 
 
+function DismissFireFoxUpdateAvailableDialog: string;
+begin
+  //http://127.0.0.1:5444/ExecuteSetVarAction?StackLevel=0&ListOfVarNames=$DialogIsVisible$&ListOfVarValues=False&ListOfVarEvalBefore=0&ActionName=Clear DialogIsVisible&ActionTimeout=0
+  //http://127.0.0.1:5444/ExecuteFindControlAction?StackLevel=0&AllowToFail=1&MatchClassName=MozillaDropShadowWindowClass&FileLocation=Disk&ActionName=Find dialog&ActionTimeout=3000
+  //http://127.0.0.1:5444/ExecuteSetVarAction?StackLevel=0&ListOfVarNames=$DialogIsVisible$&ListOfVarValues=True&ListOfVarEvalBefore=0&ActionName=DialogIsVisible&ActionTimeout=0
+  //http://127.0.0.1:5444/ExecuteFindSubControlAction?StackLevel=0&MatchText=Dismiss&MatchBitmapText[0].ForegroundColor=000000&MatchBitmapText[0].BackgroundColor=F2EFEF&MatchBitmapText[0].FontName=Segoe UI&MatchBitmapText[0].FontSize=11&MatchBitmapText[0].FontQuality=4&InitialRectangle.Left=$Control_Right$&InitialRectangle.Top=$Control_Bottom$&InitialRectangle.LeftOffset=-111&InitialRectangle.TopOffset=-64&InitialRectangle.RightOffset=-10&InitialRectangle.BottomOffset=-9&ColorError=40&AllowedColorErrorCount=200&CropFromScreenshot=1&FileLocation=Disk&ActionName=Find text on button&ActionTimeout=1000
+  //http://127.0.0.1:5444/ExecuteClickAction?StackLevel=0&LeaveMouse=1&DelayAfterMovingToDestination=500&DelayAfterMouseDown=400&MoveDuration=800&ActionName="Click"&ActionTimeout=0
+end;
+
+
 begin
   try
     {$IFDEF Windows}
@@ -176,6 +186,9 @@ begin
 
         if ParamStr(1) = '--TypeAddressIntoAddressBar' then
           WriteLn(TypeAddressIntoAddressBar(ParamStr(2)));
+
+        if ParamStr(1) = '--DismissUpdateAvailableDialog' then
+          WriteLn(DismissFireFoxUpdateAvailableDialog(ParamStr(2)));
       finally
         DoneClickerClient;
       end;
