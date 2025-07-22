@@ -162,48 +162,140 @@ begin
 end;
 
 
-function DismissFireFoxUpdateAvailableDialog(AReserved: string): string;    //Refactoring required
+function Clear_DialogIsVisible: string; // Clear DialogIsVisible
 var
-  Response: string;
   SetVarAPI: TClkSetVarOptionsAPI;
   SetVar: TClkSetVarOptions;
-  FindControlDialogAPI: TClkFindControlOptionsAPI;
-  FindControlDialog: TClkFindControlOptions;
+begin
+  GetDefaultPropertyValues_SetVar(SetVar);
+  SetVar.ListOfVarNames := '$DialogIsVisible$';
+  SetVar.ListOfVarValues := 'False';
+  SetVar.ListOfVarEvalBefore := '0';
+
+  SetSetVarOptionsToAPI(SetVar, SetVarAPI);
+
+  SetLength(Result, CMaxSharedStringLength);
+  SetLength(Result, ExecuteSetVarAction(@WideString('Clear DialogIsVisible')[1], 0, @SetVarAPI, False, @Result[1]));
+end;
+
+
+function Find_dialog: string; // Find dialog
+var
+  FindControlAPI: TClkFindControlOptionsAPI;
+  FindControl: TClkFindControlOptions;
   DummyDestMatchBitmapTextRecAPI: TMatchBitmapTextRecAPI;
   DummyDestMatchBitmapTextArray: TClkFindControlMatchBitmapTextAPIArr;
+begin
+  GetDefaultPropertyValues_FindControl(FindControl);
+  FindControl.AllowToFail := True;
+  FindControl.MatchClassName := 'MozillaDropShadowWindowClass';
+
+  SetFindControlOptionsToAPI(FindControl, FindControlAPI, DummyDestMatchBitmapTextRecAPI, DummyDestMatchBitmapTextArray);
+
+  SetLength(Result, CMaxSharedStringLength);
+  SetLength(Result, ExecuteFindControlAction(@WideString('Find dialog')[1], 3000, @FindControlAPI, False, @WideString('Disk')[1], @Result[1]));
+end;
+
+
+function Bring_to_front: string; // Bring to front
+var
+  WindowOperationsAPI: TClkWindowOperationsOptionsAPI;
+  WindowOperations: TClkWindowOperationsOptions;
+begin
+  GetDefaultPropertyValues_WindowOperations(WindowOperations);
+
+  SetWindowOperationsOptionsToAPI(WindowOperations, WindowOperationsAPI);
+
+  SetLength(Result, CMaxSharedStringLength);
+  SetLength(Result, ExecuteWindowOperationsAction(@WideString('Bring to front')[1], 0, @WindowOperationsAPI, False, @Result[1]));
+end;
+
+
+function DialogIsVisible: string; // DialogIsVisible
+var
+  SetVarAPI: TClkSetVarOptionsAPI;
+  SetVar: TClkSetVarOptions;
+begin
+  GetDefaultPropertyValues_SetVar(SetVar);
+  SetVar.ListOfVarNames := '$DialogIsVisible$';
+  SetVar.ListOfVarValues := 'True';
+  SetVar.ListOfVarEvalBefore := '0';
+
+  SetSetVarOptionsToAPI(SetVar, SetVarAPI);
+
+  SetLength(Result, CMaxSharedStringLength);
+  SetLength(Result, ExecuteSetVarAction(@WideString('DialogIsVisible')[1], 0, @SetVarAPI, False, @Result[1]));
+end;
+
+
+function Find_text_on_button: string; // Find text on button
+var
   FindSubControlAPI: TClkFindSubControlOptionsAPI;
   FindSubControl: TClkFindSubControlOptions;
   DestMatchBitmapTextRecAPI: TMatchBitmapTextRecAPI;
   DestMatchBitmapTextArray: TClkFindControlMatchBitmapTextAPIArr;
+begin
+  GetDefaultPropertyValues_FindSubControl(FindSubControl);
+  FindSubControl.MatchText := 'Dismiss';
+  SetLength(FindSubControl.MatchBitmapText, 2);
+  FindSubControl.MatchBitmapText[0].ForegroundColor := '000000';
+  FindSubControl.MatchBitmapText[0].BackgroundColor := 'F2EFEF';
+  FindSubControl.MatchBitmapText[0].FontName := 'Segoe UI';
+  FindSubControl.MatchBitmapText[0].FontSize := 11;
+  FindSubControl.MatchBitmapText[0].FontQuality := TFontQuality(4);
+  FindSubControl.MatchBitmapText[1].ForegroundColor := '000000';
+  FindSubControl.MatchBitmapText[1].BackgroundColor := 'F2EFEF';
+  FindSubControl.MatchBitmapText[1].FontName := 'Segoe UI';
+  FindSubControl.MatchBitmapText[1].FontSize := 11;
+  FindSubControl.MatchBitmapText[1].FontQuality := TFontQuality(5);
+  FindSubControl.MatchBitmapText[1].ProfileName := 'Profile [1]';
+  FindSubControl.InitialRectangle.Left := '$Control_Right$';
+  FindSubControl.InitialRectangle.Top := '$Control_Bottom$';
+  FindSubControl.InitialRectangle.LeftOffset := '-111';
+  FindSubControl.InitialRectangle.TopOffset := '-64';
+  FindSubControl.InitialRectangle.RightOffset := '-10';
+  FindSubControl.InitialRectangle.BottomOffset := '-9';
+  FindSubControl.ColorError := '40';
+  FindSubControl.AllowedColorErrorCount := '200';
+  FindSubControl.CropFromScreenshot := True;
+
+  SetFindSubControlOptionsToAPI(FindSubControl, FindSubControlAPI, DestMatchBitmapTextRecAPI, DestMatchBitmapTextArray);
+
+  SetLength(Result, CMaxSharedStringLength);
+  SetLength(Result, ExecuteFindSubControlAction(@WideString('Find text on button')[1], 1000, @FindSubControlAPI, False, @WideString('Disk')[1], @Result[1]));
+end;
+
+
+function _Click_: string; // "Click"
+var
   ClickAPI: TClkClickOptionsAPI;
   Click: TClkClickOptions;
-  WindowOperationsAPI: TClkWindowOperationsOptionsAPI;
-  WindowOperations: TClkWindowOperationsOptions;
 begin
-  GetDefaultPropertyValues_SetVar(SetVar);
-  SetVar.ListOfVarNames := '$DialogIsVisible$';
-  SetVar.ListOfVarValues := 'False';
-  SetVar.ListOfVarEvalBefore := '0';
+  GetDefaultPropertyValues_Click(Click);
+  Click.LeaveMouse := True;
+  Click.DelayAfterMovingToDestination := '500';
+  Click.DelayAfterMouseDown := '400';
+  Click.MoveDuration := '800';
 
-  SetSetVarOptionsToAPI(SetVar, SetVarAPI);
+  SetClickOptionsToAPI(Click, ClickAPI);
 
-  SetLength(Response, CMaxSharedStringLength);
-  SetLength(Response, ExecuteSetVarAction(@WideString('Clear DialogIsVisible')[1], 0, @SetVarAPI, False, @Response[1]));
+  SetLength(Result, CMaxSharedStringLength);
+  SetLength(Result, ExecuteClickAction(@WideString('"Click"')[1], 0, @ClickAPI, False, @Result[1]));
+end;
+
+
+
+function DismissFireFoxUpdateAvailableDialog(AReserved: string): string;
+var
+  Response: string;
+begin
+  Response := Clear_DialogIsVisible;
   Result := GetErrorMessageFromResponse(Response);
 
   if Result <> '' then
     Exit;
 
-  GetDefaultPropertyValues_FindControl(FindControlDialog);
-  FindControlDialog.AllowToFail := True;
-  FindControlDialog.MatchText := '';
-  FindControlDialog.MatchClassName := 'MozillaDropShadowWindowClass';
-
-  SetFindControlOptionsToAPI(FindControlDialog, FindControlDialogAPI, DummyDestMatchBitmapTextRecAPI, DummyDestMatchBitmapTextArray);
-
-  SetLength(Response, CMaxSharedStringLength);
-  SetLength(Response, ExecuteFindControlAction(@WideString('Find dialog.')[1], 3000, @FindControlDialogAPI, False, @WideString('Disk')[1], @Response[1]));
-
+  Response := Find_dialog;
   Result := GetErrorMessageFromResponse(Response);
 
   if Result <> '' then
@@ -217,11 +309,7 @@ begin
 
   if GetVarValueFromResponse(Response, '$LastAction_Status$') = 'Successful' then
   begin
-    GetDefaultPropertyValues_WindowOperations(WindowOperations);
-    SetWindowOperationsOptionsToAPI(WindowOperations, WindowOperationsAPI);
-
-    SetLength(Response, CMaxSharedStringLength);
-    SetLength(Response, ExecuteWindowOperationsAction(@WideString('Bring browser to front.')[1], 1000, @WindowOperationsAPI, False, @Response[1]));
+    Response := Bring_to_front;
     Result := GetErrorMessageFromResponse(Response);
 
     if Result <> '' then
@@ -236,15 +324,7 @@ begin
 
   if GetVarValueFromResponse(Response, '$LastAction_Status$') = 'Successful' then
   begin
-    GetDefaultPropertyValues_SetVar(SetVar);
-    SetVar.ListOfVarNames := '$DialogIsVisible$';
-    SetVar.ListOfVarValues := 'True';
-    SetVar.ListOfVarEvalBefore := '0';
-
-    SetSetVarOptionsToAPI(SetVar, SetVarAPI);
-
-    SetLength(Response, CMaxSharedStringLength);
-    SetLength(Response, ExecuteSetVarAction(@WideString('DialogIsVisible')[1], 0, @SetVarAPI, False, @Response[1]));
+    Response := DialogIsVisible;
     Result := GetErrorMessageFromResponse(Response);
 
     if Result <> '' then
@@ -253,37 +333,7 @@ begin
 
   if GetVarValueFromResponse(Response, '$DialogIsVisible$') = 'True' then
   begin
-    GetDefaultPropertyValues_FindSubControl(FindSubControl);
-    FindSubControl.MatchText := 'Dismiss';
-    SetLength(FindSubControl.MatchBitmapText, 2);
-    FindSubControl.MatchBitmapText[0].ForegroundColor := '000000';
-    FindSubControl.MatchBitmapText[0].BackgroundColor := 'F2EFEF';
-    FindSubControl.MatchBitmapText[0].FontName := 'Segoe UI';
-    FindSubControl.MatchBitmapText[0].FontSize := 11;
-    FindSubControl.MatchBitmapText[0].FontQuality := fqAntialiased;
-    FindSubControl.MatchBitmapText[1].ForegroundColor := '000000';
-    FindSubControl.MatchBitmapText[1].BackgroundColor := 'F2EFEF';
-    FindSubControl.MatchBitmapText[1].FontName := 'Segoe UI';
-    FindSubControl.MatchBitmapText[1].FontSize := 11;
-    FindSubControl.MatchBitmapText[1].FontQuality := fqCleartype;
-    FindSubControl.MatchBitmapText[1].ProfileName := 'Profile [1]';
-    FindSubControl.InitialRectangle.Left := '$Control_Right$';
-    FindSubControl.InitialRectangle.Top := '$Control_Bottom$';
-    FindSubControl.InitialRectangle.Right := '$Control_Right$';
-    FindSubControl.InitialRectangle.Bottom := '$Control_Bottom$';
-    FindSubControl.InitialRectangle.LeftOffset := '-111';
-    FindSubControl.InitialRectangle.TopOffset := '-64';
-    FindSubControl.InitialRectangle.RightOffset := '-10';
-    FindSubControl.InitialRectangle.BottomOffset := '-9';
-    FindSubControl.ColorError := '40';
-    FindSubControl.AllowedColorErrorCount := '200';
-    FindSubControl.CropFromScreenshot := True;
-
-    SetFindSubControlOptionsToAPI(FindSubControl, FindSubControlAPI, DestMatchBitmapTextRecAPI, DestMatchBitmapTextArray);
-
-    SetLength(Response, CMaxSharedStringLength);
-    SetLength(Response, ExecuteFindSubControlAction(@WideString('Find text on button')[1], 1000, @FindSubControlAPI, False, @WideString('Disk')[1], @Response[1]));
-
+    Response := Find_text_on_button;
     Result := GetErrorMessageFromResponse(Response);
 
     if Result <> '' then
@@ -292,17 +342,7 @@ begin
 
   if GetVarValueFromResponse(Response, '$DialogIsVisible$') = 'True' then
   begin
-    GetDefaultPropertyValues_Click(Click);
-    Click.LeaveMouse := True;
-    Click.DelayAfterMovingToDestination := '500';
-    Click.DelayAfterMouseDown := '400';
-    Click.MoveDuration := '800';
-
-    SetClickOptionsToAPI(Click, ClickAPI);
-
-    SetLength(Response, CMaxSharedStringLength);
-    SetLength(Response, ExecuteClickAction(@WideString('"Click"')[1], 0, @ClickAPI, False, @Response[1]));
-
+    Response := _Click_;
     Result := GetErrorMessageFromResponse(Response);
 
     if Result <> '' then
