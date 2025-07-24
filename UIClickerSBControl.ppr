@@ -69,7 +69,7 @@ begin
   SetFindControlOptionsToAPI(VerifFindControl, VerifFindControlAPI, DummyDestMatchBitmapTextRecAPI, DummyDestMatchBitmapTextArray);
 
   SetLength(Response, CMaxSharedStringLength);
-  SetLength(Response, ExecuteFindControlAction(@'Wait for browser.'[1], 3000, @VerifFindControlAPI, False, @'Disk'[1], @Response[1]));
+  SetLength(Response, ExecuteFindControlAction(@WideString('Wait for browser.')[1], 3000, @VerifFindControlAPI, False, @WideString('Disk')[1], @Response[1]));
   Result := Response;
 
   Err := GetErrorMessageFromResponse(Response);
@@ -348,6 +348,24 @@ begin
     if Result <> '' then
       Exit;
   end;
+
+  if GetVarValueFromResponse(Response, '$DialogIsVisible$') = 'True' then
+  begin
+    Response := Find_dialog;
+    Result := GetErrorMessageFromResponse(Response);
+
+    if Result <> '' then
+      Exit;
+
+    Result := GetVarValueFromResponse(Response, '$LastAction_Status$');
+    if Result <> 'Allowed Failed' then
+    begin
+      Result := Result + '  // Expected the dialog to be closed after clicking "Dismiss".';
+      Exit;
+    end
+    else
+      Result := '';
+  end;
 end;
 
 
@@ -362,7 +380,21 @@ begin
 end;
 
 
+var
+  ExeExt: string;
+
 begin
+  if ParamCount = 0 then
+  begin
+    ExeExt := {$IFDEF Windows} '.exe' {$ELSE} '' {$ENDIF};
+    WriteLn('Usage:');
+    WriteLn('  UIClickerSBControl' + ExeExt + ' --OpenBrowser Default');
+    WriteLn('  UIClickerSBControl' + ExeExt + ' --OpenBrowser <CustomBrowserName>');
+    WriteLn('  UIClickerSBControl' + ExeExt + ' --TypeAddressIntoAddressBar <Address>');
+    WriteLn('  UIClickerSBControl' + ExeExt + ' --DismissUpdateAvailableDialog <ReservedOptions>');
+    Exit;
+  end;
+
   try
     {$IFDEF Windows}
       LoadClickerClient('..\UIClicker\ClickerClient\ClickerClient.dll');
