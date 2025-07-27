@@ -1,5 +1,5 @@
 [Actions]
-Count=34
+Count=35
 Version=2
 
 [Action_0]
@@ -69,7 +69,7 @@ MatchText=File
 AllowToFail=0
 WaitForControlToGoAway=0
 MatchBitmapTextArr=1
-MatchBitmapText_Count=2
+MatchBitmapText_Count=4
 MatchBitmapText[0].ForegroundColor=$Color_WindowText$
 MatchBitmapText[0].BackgroundColor=56C221
 MatchBitmapText[0].FontName=Segoe UI
@@ -104,6 +104,40 @@ MatchBitmapText[1].CropTop=0
 MatchBitmapText[1].CropRight=0
 MatchBitmapText[1].CropBottom=0
 MatchBitmapText[1].IgnoreBackgroundColor=1
+MatchBitmapText[2].ForegroundColor=FEFBFB
+MatchBitmapText[2].BackgroundColor=221B1C
+MatchBitmapText[2].FontName=Segoe UI
+MatchBitmapText[2].FontSize=9
+MatchBitmapText[2].Bold=0
+MatchBitmapText[2].Italic=0
+MatchBitmapText[2].Underline=0
+MatchBitmapText[2].StrikeOut=0
+MatchBitmapText[2].FontQuality=4
+MatchBitmapText[2].FontQualityUsesReplacement=0
+MatchBitmapText[2].FontQualityReplacement=
+MatchBitmapText[2].ProfileName=Profile [2]A
+MatchBitmapText[2].CropLeft=0
+MatchBitmapText[2].CropTop=0
+MatchBitmapText[2].CropRight=0
+MatchBitmapText[2].CropBottom=0
+MatchBitmapText[2].IgnoreBackgroundColor=1
+MatchBitmapText[3].ForegroundColor=FEFBFB
+MatchBitmapText[3].BackgroundColor=221B1C
+MatchBitmapText[3].FontName=Segoe UI
+MatchBitmapText[3].FontSize=9
+MatchBitmapText[3].Bold=0
+MatchBitmapText[3].Italic=0
+MatchBitmapText[3].Underline=0
+MatchBitmapText[3].StrikeOut=0
+MatchBitmapText[3].FontQuality=5
+MatchBitmapText[3].FontQualityUsesReplacement=0
+MatchBitmapText[3].FontQualityReplacement=
+MatchBitmapText[3].ProfileName=Profile [3]
+MatchBitmapText[3].CropLeft=0
+MatchBitmapText[3].CropTop=0
+MatchBitmapText[3].CropRight=0
+MatchBitmapText[3].CropBottom=0
+MatchBitmapText[3].IgnoreBackgroundColor=1
 MatchBitmapFiles=
 ColorError=10
 AllowedColorErrorCount=50
@@ -301,7 +335,7 @@ MatchByHistogramSettings.MinPercentColorMatch=50
 MatchByHistogramSettings.MostSignificantColorCountInSubBmp=10
 MatchByHistogramSettings.MostSignificantColorCountInBackgroundBmp=15
 EvaluateTextCount=-1
-CropFromScreenshot=0
+CropFromScreenshot=1
 ThreadCount=2
 
 [Action_6]
@@ -388,7 +422,7 @@ MatchCriteria.WillMatchBitmapText=1
 MatchCriteria.WillMatchBitmapFiles=0
 MatchCriteria.WillMatchPrimitiveFiles=0
 MatchText=New Tab
-AllowToFail=0
+AllowToFail=1
 WaitForControlToGoAway=0
 MatchBitmapTextArr=1
 MatchBitmapText_Count=2
@@ -466,6 +500,96 @@ CropFromScreenshot=1
 ThreadCount=2
 
 [Action_9]
+ActionName=FindTheNewPrivateTab
+Action=FindSubControl
+ActionTimeout=1000
+ActionEnabled=1
+ActionCondition=$LastAction_Status$==Allowed Failed
+BreakpointExists=0
+BreakpointEnabled=1
+BreakpointCondition=
+MatchCriteria.WillMatchBitmapText=1
+MatchCriteria.WillMatchBitmapFiles=0
+MatchCriteria.WillMatchPrimitiveFiles=0
+MatchText=New Private Tab
+AllowToFail=0
+WaitForControlToGoAway=0
+MatchBitmapTextArr=1
+MatchBitmapText_Count=2
+MatchBitmapText[0].ForegroundColor=FEFBFB
+MatchBitmapText[0].BackgroundColor=4D4142
+MatchBitmapText[0].FontName=Segoe UI Emoji
+MatchBitmapText[0].FontSize=9
+MatchBitmapText[0].Bold=0
+MatchBitmapText[0].Italic=0
+MatchBitmapText[0].Underline=0
+MatchBitmapText[0].StrikeOut=0
+MatchBitmapText[0].FontQuality=4
+MatchBitmapText[0].FontQualityUsesReplacement=0
+MatchBitmapText[0].FontQualityReplacement=
+MatchBitmapText[0].ProfileName=Profile [1]
+MatchBitmapText[0].CropLeft=0
+MatchBitmapText[0].CropTop=0
+MatchBitmapText[0].CropRight=0
+MatchBitmapText[0].CropBottom=0
+MatchBitmapText[0].IgnoreBackgroundColor=0
+MatchBitmapText[1].ForegroundColor=FEFBFB
+MatchBitmapText[1].BackgroundColor=4D4142
+MatchBitmapText[1].FontName=Segoe UI Emoji
+MatchBitmapText[1].FontSize=9
+MatchBitmapText[1].Bold=0
+MatchBitmapText[1].Italic=0
+MatchBitmapText[1].Underline=0
+MatchBitmapText[1].StrikeOut=0
+MatchBitmapText[1].FontQuality=5
+MatchBitmapText[1].FontQualityUsesReplacement=0
+MatchBitmapText[1].FontQualityReplacement=
+MatchBitmapText[1].ProfileName=Profile [2]
+MatchBitmapText[1].CropLeft=0
+MatchBitmapText[1].CropTop=0
+MatchBitmapText[1].CropRight=0
+MatchBitmapText[1].CropBottom=0
+MatchBitmapText[1].IgnoreBackgroundColor=0
+MatchBitmapFiles=
+ColorError=30
+AllowedColorErrorCount=180
+MatchBitmapAlgorithm=0
+MatchBitmapAlgorithm_Grid_XMultipleOf=1
+MatchBitmapAlgorithm_Grid_YMultipleOf=1
+MatchBitmapAlgorithm_Grid_XOffset=0
+MatchBitmapAlgorithm_Grid_YOffset=0
+InitialRectangle.Left=$Control_Left$
+InitialRectangle.Top=$Control_Top$
+InitialRectangle.Right=$Control_Right$
+InitialRectangle.Bottom=$Control_Top$
+UseWholeScreen=0
+InitialRectangle.LeftOffset=191
+InitialRectangle.TopOffset=28
+InitialRectangle.RightOffset=-66
+InitialRectangle.BottomOffset=58
+StartSearchingWithCachedControl=0
+CachedControlLeft=
+CachedControlTop=
+MatchPrimitiveFiles=
+GetAllControls=0
+UseFastSearch=1
+FastSearchAllowedColorErrorCount=10
+IgnoredColors=
+SleepySearch=0
+StopSearchOnMismatch=1
+ImageSource=0
+SourceFileName=
+ImageSourceFileNameLocation=1
+PrecisionTimeout=0
+FullBackgroundImageInResult=1
+MatchByHistogramSettings.MinPercentColorMatch=50
+MatchByHistogramSettings.MostSignificantColorCountInSubBmp=10
+MatchByHistogramSettings.MostSignificantColorCountInBackgroundBmp=15
+EvaluateTextCount=-1
+CropFromScreenshot=1
+ThreadCount=2
+
+[Action_10]
 ActionName=Cache NewTab
 Action=SetVar
 ActionTimeout=0
@@ -479,7 +603,7 @@ ListOfVarValues=$Control_Left$$Control_Top$$Control_Right$$Control_Bottom$
 ListOfVarEvalBefore=111111111
 FailOnException=0
 
-[Action_10]
+[Action_11]
 ActionName=ClickTabToFocus
 Action=Click
 ActionTimeout=0
@@ -516,7 +640,7 @@ DelayAfterMouseDown=200
 MoveDuration=-1
 UseClipCursor=0
 
-[Action_11]
+[Action_12]
 ActionName=Type about:config
 Action=SetControlText
 ActionTimeout=0
@@ -530,7 +654,7 @@ ControlType=2
 DelayBetweenKeyStrokes=$Random(50, 100)$
 Count=1
 
-[Action_12]
+[Action_13]
 ActionName=WaitABit
 Action=Sleep
 ActionTimeout=0
@@ -541,7 +665,7 @@ BreakpointEnabled=0
 BreakpointCondition=
 Value=500
 
-[Action_13]
+[Action_14]
 ActionName=TypeEnter
 Action=SetControlText
 ActionTimeout=0
@@ -555,7 +679,7 @@ ControlType=2
 DelayBetweenKeyStrokes=0
 Count=1
 
-[Action_14]
+[Action_15]
 ActionName=Find FF
 Action=FindControl
 ActionTimeout=3000
@@ -589,7 +713,7 @@ GetAllControls=0
 PrecisionTimeout=0
 EvaluateTextCount=-1
 
-[Action_15]
+[Action_16]
 ActionName=BringToFront
 Action=WindowOperations
 ActionTimeout=0
@@ -606,7 +730,7 @@ NewHeight=
 NewPositionEnabled=0
 NewSizeEnabled=0
 
-[Action_16]
+[Action_17]
 ActionName=FindAcceptRiskButton
 Action=FindSubControl
 ActionTimeout=1000
@@ -696,7 +820,7 @@ EvaluateTextCount=-1
 CropFromScreenshot=1
 ThreadCount=2
 
-[Action_17]
+[Action_18]
 ActionName=ClickAcceptRisk
 Action=Click
 ActionTimeout=0
@@ -733,7 +857,7 @@ DelayAfterMouseDown=200
 MoveDuration=-1
 UseClipCursor=0
 
-[Action_18]
+[Action_19]
 ActionName=WaitABit
 Action=Sleep
 ActionTimeout=0
@@ -744,7 +868,7 @@ BreakpointEnabled=0
 BreakpointCondition=
 Value=500
 
-[Action_19]
+[Action_20]
 ActionName=TypeTrim
 Action=SetControlText
 ActionTimeout=0
@@ -758,7 +882,7 @@ ControlType=2
 DelayBetweenKeyStrokes=$Random(100, 200)$
 Count=1
 
-[Action_20]
+[Action_21]
 ActionName=TypeEnter
 Action=SetControlText
 ActionTimeout=0
@@ -772,7 +896,7 @@ ControlType=2
 DelayBetweenKeyStrokes=0
 Count=1
 
-[Action_21]
+[Action_22]
 ActionName=ResetFlag
 Action=SetVar
 ActionTimeout=0
@@ -786,7 +910,7 @@ ListOfVarValues=False
 ListOfVarEvalBefore=0
 FailOnException=0
 
-[Action_22]
+[Action_23]
 ActionName=Find FF
 Action=FindControl
 ActionTimeout=3000
@@ -820,7 +944,7 @@ GetAllControls=0
 PrecisionTimeout=0
 EvaluateTextCount=-1
 
-[Action_23]
+[Action_24]
 ActionName=FindBrowserUrlbarTrimURLs
 Action=FindSubControl
 ActionTimeout=1000
@@ -910,7 +1034,7 @@ EvaluateTextCount=-1
 CropFromScreenshot=1
 ThreadCount=2
 
-[Action_24]
+[Action_25]
 ActionName=SetFlag
 Action=SetVar
 ActionTimeout=0
@@ -924,7 +1048,7 @@ ListOfVarValues=True
 ListOfVarEvalBefore=0
 FailOnException=0
 
-[Action_25]
+[Action_26]
 ActionName=DoubleClickTrim
 Action=Click
 ActionTimeout=0
@@ -961,7 +1085,7 @@ DelayAfterMouseDown=25
 MoveDuration=-1
 UseClipCursor=0
 
-[Action_26]
+[Action_27]
 ActionName=Find FF
 Action=FindControl
 ActionTimeout=3000
@@ -995,7 +1119,7 @@ GetAllControls=0
 PrecisionTimeout=0
 EvaluateTextCount=-1
 
-[Action_27]
+[Action_28]
 ActionName=FindBrowserUrlbarTrimURLs_Bold
 Action=FindSubControl
 ActionTimeout=1000
@@ -1085,7 +1209,7 @@ EvaluateTextCount=-1
 CropFromScreenshot=1
 ThreadCount=2
 
-[Action_28]
+[Action_29]
 ActionName=RestoreCachedTabButton
 Action=SetVar
 ActionTimeout=0
@@ -1099,14 +1223,14 @@ ListOfVarValues=$Tab_Left$$Tab_Top$$Tab_Right$$Tab_Bottom$$Tab_Width$$
 ListOfVarEvalBefore=111111111
 FailOnException=0
 
-[Action_29]
+[Action_30]
 ActionName=RightClickTabButton
 Action=Click
 ActionTimeout=0
 ActionEnabled=1
 ActionCondition=
 BreakpointExists=0
-BreakpointEnabled=0
+BreakpointEnabled=1
 BreakpointCondition=
 XOffsetReference=0
 YOffsetReference=0
@@ -1136,7 +1260,7 @@ DelayAfterMouseDown=200
 MoveDuration=-1
 UseClipCursor=0
 
-[Action_30]
+[Action_31]
 ActionName=FindPopupMenu
 Action=FindControl
 ActionTimeout=3000
@@ -1170,14 +1294,14 @@ GetAllControls=0
 PrecisionTimeout=0
 EvaluateTextCount=-1
 
-[Action_31]
+[Action_32]
 ActionName=BringToFront
 Action=WindowOperations
 ActionTimeout=0
 ActionEnabled=1
 ActionCondition=
 BreakpointExists=0
-BreakpointEnabled=1
+BreakpointEnabled=0
 BreakpointCondition=
 WindowOperation=0
 NewX=
@@ -1187,7 +1311,7 @@ NewHeight=
 NewPositionEnabled=0
 NewSizeEnabled=0
 
-[Action_32]
+[Action_33]
 ActionName=FindCloseTabMenuItem
 Action=FindSubControl
 ActionTimeout=1000
@@ -1277,7 +1401,7 @@ EvaluateTextCount=-1
 CropFromScreenshot=1
 ThreadCount=2
 
-[Action_33]
+[Action_34]
 ActionName=ClickCloseTabMenuItem
 Action=Click
 ActionTimeout=0
