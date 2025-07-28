@@ -1,8 +1,59 @@
 [Actions]
-Count=6
+Count=8
 Version=2
 
 [Action_0]
+ActionName=WaitForBrowser
+Action=FindControl
+ActionTimeout=5000
+ActionEnabled=1
+ActionCondition=
+BreakpointExists=0
+BreakpointEnabled=0
+BreakpointCondition=
+MatchCriteria.WillMatchText=1
+MatchCriteria.WillMatchClassName=1
+MatchCriteria.SearchForControlMode=0
+MatchText=Mozilla Firefox
+MatchClassName=MozillaWindowClass
+MatchTextSeparator=
+MatchClassNameSeparator=
+AllowToFail=0
+WaitForControlToGoAway=0
+InitialRectangle.Left=$Control_Left$
+InitialRectangle.Top=$Control_Top$
+InitialRectangle.Right=$Control_Right$
+InitialRectangle.Bottom=$Control_Bottom$
+UseWholeScreen=1
+InitialRectangle.LeftOffset=0
+InitialRectangle.TopOffset=0
+InitialRectangle.RightOffset=0
+InitialRectangle.BottomOffset=0
+StartSearchingWithCachedControl=0
+CachedControlLeft=
+CachedControlTop=
+GetAllControls=0
+PrecisionTimeout=0
+EvaluateTextCount=-1
+
+[Action_1]
+ActionName=Bring to front
+Action=WindowOperations
+ActionTimeout=0
+ActionEnabled=1
+ActionCondition=
+BreakpointExists=0
+BreakpointEnabled=0
+BreakpointCondition=
+WindowOperation=0
+NewX=
+NewY=
+NewWidth=
+NewHeight=
+NewPositionEnabled=0
+NewSizeEnabled=0
+
+[Action_2]
 ActionName=Clear DialogIsVisible
 Action=SetVar
 ActionTimeout=0
@@ -16,7 +67,7 @@ ListOfVarValues=False
 ListOfVarEvalBefore=0
 FailOnException=0
 
-[Action_1]
+[Action_3]
 ActionName=Find dialog
 Action=FindControl
 ActionTimeout=3000
@@ -50,7 +101,7 @@ GetAllControls=0
 PrecisionTimeout=0
 EvaluateTextCount=-1
 
-[Action_2]
+[Action_4]
 ActionName=Bring to front
 Action=WindowOperations
 ActionTimeout=0
@@ -67,7 +118,7 @@ NewHeight=
 NewPositionEnabled=0
 NewSizeEnabled=0
 
-[Action_3]
+[Action_5]
 ActionName=DialogIsVisible
 Action=SetVar
 ActionTimeout=0
@@ -81,7 +132,7 @@ ListOfVarValues=True
 ListOfVarEvalBefore=0
 FailOnException=0
 
-[Action_4]
+[Action_6]
 ActionName=Find text on button
 Action=FindSubControl
 ActionTimeout=1000
@@ -205,7 +256,7 @@ EvaluateTextCount=-1
 CropFromScreenshot=1
 ThreadCount=2
 
-[Action_5]
+[Action_7]
 ActionName="Click"
 Action=Click
 ActionTimeout=0
