@@ -1,0 +1,36 @@
+[Actions]
+Count=2
+Version=2
+
+[Action_0]
+ActionName=TypeTrim
+Action=SetControlText
+ActionTimeout=0
+ActionEnabled=1
+ActionCondition=
+BreakpointExists=0
+BreakpointEnabled=0
+BreakpointCondition=
+Text=trim
+ControlType=2
+DelayBetweenKeyStrokes=$Random(100, 200)$
+Count=1
+
+[Action_1]
+ActionName=TypeEnter
+Action=SetControlText
+ActionTimeout=0
+ActionEnabled=1
+ActionCondition=
+BreakpointExists=0
+BreakpointEnabled=0
+BreakpointCondition=
+Text=$Return$
+ControlType=2
+DelayBetweenKeyStrokes=0
+Count=1
+
+[Notes]
+Content=refactored actions
+TemplateIconPath=
+
