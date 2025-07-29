@@ -3,7 +3,7 @@ Count=15
 Version=2
 
 [Action_0]
-ActionName=Find FF
+ActionName=Find FF1
 Action=FindControl
 ActionTimeout=3000
 ActionEnabled=1
@@ -376,7 +376,7 @@ MoveDuration=-1
 UseClipCursor=0
 
 [Action_7]
-ActionName=Find FF
+ActionName=Find FF2
 Action=FindControl
 ActionTimeout=3000
 ActionEnabled=1

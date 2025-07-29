@@ -17,7 +17,7 @@ ListOfVarEvalBefore=0
 FailOnException=0
 
 [Action_1]
-ActionName=Find FF
+ActionName=Find FF4
 Action=FindControl
 ActionTimeout=3000
 ActionEnabled=1
@@ -192,7 +192,7 @@ MoveDuration=-1
 UseClipCursor=0
 
 [Action_5]
-ActionName=Find FF
+ActionName=Find FF5
 Action=FindControl
 ActionTimeout=3000
 ActionEnabled=1
